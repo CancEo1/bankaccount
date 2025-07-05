@@ -10,7 +10,9 @@ class TestBankAccount(unittest.TestCase):
     def test_initial_balance(self):
         # test initial balances with various amounts
         self.assertEqual(BankAccount().getBalance(), 0.0)
+
         self.assertEqual(BankAccount(100).getBalance(), 100.0)
+
         self.assertEqual(BankAccount(50.5).getBalance(), 50.5)
     
     # test method to deposit money into the account
@@ -18,10 +20,12 @@ class TestBankAccount(unittest.TestCase):
         # test deposits with various amounts
         acct = BankAccount(100)
         acct.deposit(50)
-        self.assertEqual(acct.getBalance(), 150)  # Error in original code, should be 150
+        self.assertEqual(acct.getBalance(), 150) 
+
         acct = BankAccount(100)
         acct.deposit(0)
         self.assertEqual(acct.getBalance(), 100)
+
         acct = BankAccount(150)
         acct.deposit(50)
         self.assertEqual(acct.getBalance(), 200)
@@ -31,7 +35,7 @@ class TestBankAccount(unittest.TestCase):
         # test withdraws with or/and without penalty
         acct = BankAccount(100)
         acct.withdraw(50)
-        self.assertAlmostEqual(acct.getBalance(), 50)  # Error in original code, should be 50
+        self.assertAlmostEqual(acct.getBalance(), 50) 
 
         acct = BankAccount(90)
         acct.withdraw(100)  # Triggers PENALTY
@@ -41,6 +45,7 @@ class TestBankAccount(unittest.TestCase):
         acct.withdraw(0)
         self.assertAlmostEqual(acct.getBalance(), 100)
     
+    # test method to add interest to the account
     def test_addInterest(self):
         # add interests at various rates
         acct = BankAccount(100)
@@ -54,8 +59,10 @@ class TestBankAccount(unittest.TestCase):
         acct = BankAccount(100)
         acct.addInterest(0)
         self.assertAlmostEqual(acct.getBalance(), 100.0)
-
+    
+    # test method to get the current balance of the account
     def test_getBalance(self):
+        # test getBalance with various initial balances
         acct = BankAccount(100)
         acct.deposit(50)
         self.assertEqual(acct.getBalance(), 150)
