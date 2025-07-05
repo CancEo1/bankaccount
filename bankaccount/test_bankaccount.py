@@ -88,8 +88,7 @@ class TestBankAccount(unittest.TestCase):
     def test_negative_deposit(self):
         acct = BankAccount(100)
         acct.deposit(-50)
-        self.assertEqual(acct.getBalance(), 100)  # Currently fails silently
-        print("Negative deposit did not change balance as expected.")
+        self.assertEqual(acct.getBalance(), 100)
         # Expected: Should raise error or ignore deposit
 
     def test_negative_withdrawal(self):
