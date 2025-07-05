@@ -84,6 +84,7 @@ class TestBankAccount(unittest.TestCase):
         acct.deposit(0)
         self.assertEqual(acct.getBalance(), 50)
 
+    # Additional test cases to identify bugs in the BankAccount class per assignment requirements
     def test_negative_deposit(self):
         acct = BankAccount(100)
         acct.deposit(-50)
