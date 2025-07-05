@@ -6,6 +6,15 @@ from bankaccount import BankAccount
 
 class TestBankAccount(unittest.TestCase):
     # Test cases for the BankAccount class
+    @classmethod
+    def setUpClass(cls):
+        # Set up any state specific to the execution of the given class.
+        print("Setting up BankAccount tests...")
+    @classmethod
+    def tearDownClass(cls):
+        # Clean up any state that was set up for the class.
+        print("Tearing down BankAccount tests...")
+
     # test method to retrieve the initial balance of the account
     def test_initial_balance(self):
         # test initial balances with various amounts
@@ -74,6 +83,31 @@ class TestBankAccount(unittest.TestCase):
         acct = BankAccount(50)
         acct.deposit(0)
         self.assertEqual(acct.getBalance(), 50)
+
+    def test_negative_deposit(self):
+        acct = BankAccount(100)
+        acct.deposit(-50)
+        self.assertEqual(acct.getBalance(), 100)  # Currently fails silently
+        print("Negative deposit did not change balance as expected.")
+        # Expected: Should raise error or ignore deposit
+
+    def test_negative_withdrawal(self):
+        acct = BankAccount(100)
+        acct.withdraw(-25)
+        self.assertEqual(acct.getBalance(), 100)  # Penalizes even for negative
+        # Expected: Should raise error or ignore the transaction
+
+    def test_withdraw_exceeds_balance_penalty(self):
+        acct = BankAccount(0)
+        acct.withdraw(20)
+        self.assertEqual(acct.getBalance(), -10)
+        # Current logic allows overdraw via penalty without warning
+
+    def test_negative_interest(self):
+        acct = BankAccount(100)
+        acct.addInterest(-5)
+        self.assertEqual(acct.getBalance(), 100)
+        # Applying negative interest reduces balance, which should not happen
 
 if __name__ == '__main__':
     unittest.main()
